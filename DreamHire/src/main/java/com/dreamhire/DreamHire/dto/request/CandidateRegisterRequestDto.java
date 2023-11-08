@@ -6,7 +6,6 @@ import java.util.Date;
 
 @Data
 public class CandidateRegisterRequestDto {
-    private int id;
     private String userType;
     private String email;
     private String password;
