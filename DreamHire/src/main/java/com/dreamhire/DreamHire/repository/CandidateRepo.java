@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @EnableJpaRepositories
 public interface CandidateRepo extends JpaRepository<Candidate, Integer> {
+    Candidate findById(int id);
 }

@@ -2,17 +2,18 @@ package com.dreamhire.DreamHire.service.impl;
 
 import com.dreamhire.DreamHire.dto.request.CompanyRegisterRequestDto;
 import com.dreamhire.DreamHire.model.Company;
-import com.dreamhire.DreamHire.model.SystemUser;
 import com.dreamhire.DreamHire.repository.CompanyRepo;
-import com.dreamhire.DreamHire.repository.SystemUserRepo;
+import com.dreamhire.DreamHire.service.CompanyService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CompanyServiceImpl implements CompanyService{
+public class CompanyServiceImpl implements CompanyService {
+
     @Autowired
     private ModelMapper modelMapper;
+
     @Autowired
     private CompanyRepo companyRepo;
     @Override

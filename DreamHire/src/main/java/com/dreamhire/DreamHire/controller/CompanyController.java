@@ -2,8 +2,7 @@ package com.dreamhire.DreamHire.controller;
 
 import com.dreamhire.DreamHire.dto.request.CompanyRegisterRequestDto;
 import com.dreamhire.DreamHire.model.Company;
-import com.dreamhire.DreamHire.model.SystemUser;
-import com.dreamhire.DreamHire.service.impl.CompanyService;
+import com.dreamhire.DreamHire.service.CompanyService;
 import com.dreamhire.DreamHire.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

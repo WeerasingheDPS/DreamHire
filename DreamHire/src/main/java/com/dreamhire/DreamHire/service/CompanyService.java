@@ -1,4 +1,4 @@
-package com.dreamhire.DreamHire.service.impl;
+package com.dreamhire.DreamHire.service;
 
 import com.dreamhire.DreamHire.dto.request.CompanyRegisterRequestDto;
 import com.dreamhire.DreamHire.model.Company;

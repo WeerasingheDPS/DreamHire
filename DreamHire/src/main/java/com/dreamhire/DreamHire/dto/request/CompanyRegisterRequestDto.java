@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class CompanyRegisterRequestDto {
+    private int id;
     private String userType;
     private String email;
     private String password;
