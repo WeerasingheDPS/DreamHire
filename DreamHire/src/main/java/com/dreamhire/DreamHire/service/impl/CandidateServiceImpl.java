@@ -18,6 +18,6 @@ public class CandidateServiceImpl implements CandidateService {
     public String register(CandidateRegisterRequestDto candidateRegisterRequestDto) {
         Candidate candidate = modelMapper.map(candidateRegisterRequestDto,Candidate.class);
         candidateRepo.save(candidate);
-        return "Successfully Registered!";
+        return "Candidate is Successfully Registered!";
     }
 }

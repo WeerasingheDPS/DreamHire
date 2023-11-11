@@ -1,4 +1,4 @@
-package com.dreamhire.DreamHire.util;
+package com.dreamhire.DreamHire.util.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class StandardResponse {
-
     private String message;
     private Object data;
+    private int code;
 }

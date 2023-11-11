@@ -1,9 +1,10 @@
 package com.dreamhire.DreamHire.controller;
 
+import com.dreamhire.DreamHire.dto.CompanyDto;
 import com.dreamhire.DreamHire.dto.request.CompanyRegisterRequestDto;
 import com.dreamhire.DreamHire.model.Company;
 import com.dreamhire.DreamHire.service.CompanyService;
-import com.dreamhire.DreamHire.util.StandardResponse;
+import com.dreamhire.DreamHire.util.response.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,15 +21,15 @@ public class CompanyController {
     public ResponseEntity<StandardResponse> register(@RequestBody CompanyRegisterRequestDto companyRegisterRequestDto) {
         String message = companyService.register(companyRegisterRequestDto);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(message, null), HttpStatus.CREATED
+                new StandardResponse(message, null, 201), HttpStatus.CREATED
         );
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<StandardResponse> get(@RequestParam String email) {
-        Company company = companyService.get(email);
+    @GetMapping("/get/{id}")
+    public ResponseEntity<StandardResponse> get(@PathVariable int id) {
+        CompanyDto company = companyService.get(id);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse("Success", company), HttpStatus.CREATED
+                new StandardResponse("Success", company, 200), HttpStatus.OK
         );
     }
 

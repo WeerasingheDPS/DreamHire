@@ -1,6 +1,6 @@
 package com.dreamhire.DreamHire.model;
 
-import com.dreamhire.DreamHire.util.UserType;
+import com.dreamhire.DreamHire.util.enums.UserType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

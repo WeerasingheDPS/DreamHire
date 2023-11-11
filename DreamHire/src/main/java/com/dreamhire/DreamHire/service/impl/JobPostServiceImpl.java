@@ -27,6 +27,6 @@ public class JobPostServiceImpl implements JobPostService {
         JobPost jobPost = modelMapper.map(jobPostDto,JobPost.class);
         jobPost.setCompany(companyRepo.findById(id));
         jobPostRepo.save(jobPost);
-        return "Successfully Saved!";
+        return "Job Post is Successfully Saved!";
     }
 }

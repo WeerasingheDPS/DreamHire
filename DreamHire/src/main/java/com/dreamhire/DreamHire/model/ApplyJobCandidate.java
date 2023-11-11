@@ -1,6 +1,6 @@
 package com.dreamhire.DreamHire.model;
 
-import com.dreamhire.DreamHire.util.CandidateStatus;
+import com.dreamhire.DreamHire.util.enums.CandidateStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

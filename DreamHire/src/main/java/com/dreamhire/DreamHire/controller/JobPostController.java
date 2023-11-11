@@ -1,10 +1,8 @@
 package com.dreamhire.DreamHire.controller;
 
 import com.dreamhire.DreamHire.dto.JobPostDto;
-import com.dreamhire.DreamHire.dto.request.CompanyRegisterRequestDto;
-import com.dreamhire.DreamHire.service.CompanyService;
 import com.dreamhire.DreamHire.service.JobPostService;
-import com.dreamhire.DreamHire.util.StandardResponse;
+import com.dreamhire.DreamHire.util.response.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +19,7 @@ public class JobPostController {
     public ResponseEntity<StandardResponse> save(@PathVariable int id, @RequestBody JobPostDto jobPostDto) {
         String message = jobPostService.save(jobPostDto, id);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(message, null), HttpStatus.CREATED
+                new StandardResponse(message, null, 201), HttpStatus.CREATED
         );
     }
 }

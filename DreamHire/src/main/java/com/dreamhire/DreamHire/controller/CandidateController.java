@@ -2,7 +2,7 @@ package com.dreamhire.DreamHire.controller;
 
 import com.dreamhire.DreamHire.dto.request.CandidateRegisterRequestDto;
 import com.dreamhire.DreamHire.service.CandidateService;
-import com.dreamhire.DreamHire.util.StandardResponse;
+import com.dreamhire.DreamHire.util.response.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class CandidateController {
     public ResponseEntity<StandardResponse> register(@RequestBody CandidateRegisterRequestDto candidateRegisterRequestDto){
         String message = candidateService.register(candidateRegisterRequestDto);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(message,null), HttpStatus.CREATED
+                new StandardResponse(message, null, 201), HttpStatus.CREATED
         );
     }
 }
