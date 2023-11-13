@@ -19,7 +19,7 @@ public class JobPostController {
     public ResponseEntity<StandardResponse> save(@PathVariable int id, @RequestBody JobPostDto jobPostDto) {
         String message = jobPostService.save(jobPostDto, id);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(message, null, 201), HttpStatus.CREATED
+                new StandardResponse(true, message, null, 201), HttpStatus.CREATED
         );
     }
 }

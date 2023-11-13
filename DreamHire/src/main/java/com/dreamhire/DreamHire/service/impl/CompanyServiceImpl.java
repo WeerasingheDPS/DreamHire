@@ -25,12 +25,11 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public CompanyDto get(int id) {
+    public CompanyDto getCompany(int id) {
         if(companyRepo.existsById(id)){
             return modelMapper.map(companyRepo.findById(id),CompanyDto.class);
         }else {
             throw new NotFoundException("Company is Not_Found!");
         }
-
     }
 }

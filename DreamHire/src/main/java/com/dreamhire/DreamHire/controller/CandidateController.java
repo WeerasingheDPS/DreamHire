@@ -1,5 +1,6 @@
 package com.dreamhire.DreamHire.controller;
 
+import com.dreamhire.DreamHire.dto.CandidateDto;
 import com.dreamhire.DreamHire.dto.request.CandidateRegisterRequestDto;
 import com.dreamhire.DreamHire.service.CandidateService;
 import com.dreamhire.DreamHire.util.response.StandardResponse;
@@ -20,7 +21,14 @@ public class CandidateController {
     public ResponseEntity<StandardResponse> register(@RequestBody CandidateRegisterRequestDto candidateRegisterRequestDto){
         String message = candidateService.register(candidateRegisterRequestDto);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(message, null, 201), HttpStatus.CREATED
+                new StandardResponse(true, message, null, 201), HttpStatus.CREATED
+        );
+    }
+    @GetMapping("/get/{id}")
+    public ResponseEntity<StandardResponse> getCandidate(@PathVariable int id){
+        CandidateDto candidate = candidateService.getCandidate(id);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(true, "success", candidate, 200), HttpStatus.OK
         );
     }
 }

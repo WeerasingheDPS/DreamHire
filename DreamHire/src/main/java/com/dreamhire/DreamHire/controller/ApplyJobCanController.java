@@ -20,7 +20,7 @@ public class ApplyJobCanController {
     public ResponseEntity<StandardResponse> save(@PathVariable int id, @RequestBody ApplyJobDto applyJobDto){
         String message = applyJobCandidateService.save(applyJobDto, id);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(message, null, 201), HttpStatus.CREATED
+                new StandardResponse(true, message, null, 201), HttpStatus.CREATED
         );
     }
 }

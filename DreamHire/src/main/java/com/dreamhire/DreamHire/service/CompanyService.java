@@ -8,5 +8,5 @@ import com.dreamhire.DreamHire.model.SystemUser;
 public interface CompanyService {
     String register(CompanyRegisterRequestDto companyRegisterRequestDto);
 
-    CompanyDto get(int id);
+    CompanyDto getCompany(int id);
 }

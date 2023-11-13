@@ -21,15 +21,15 @@ public class CompanyController {
     public ResponseEntity<StandardResponse> register(@RequestBody CompanyRegisterRequestDto companyRegisterRequestDto) {
         String message = companyService.register(companyRegisterRequestDto);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(message, null, 201), HttpStatus.CREATED
+                new StandardResponse(true, message, null, 201), HttpStatus.CREATED
         );
     }
 
     @GetMapping("/get/{id}")
     public ResponseEntity<StandardResponse> get(@PathVariable int id) {
-        CompanyDto company = companyService.get(id);
+        CompanyDto company = companyService.getCompany(id);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse("Success", company, 200), HttpStatus.OK
+                new StandardResponse(true, "Success", company, 200), HttpStatus.OK
         );
     }
 
