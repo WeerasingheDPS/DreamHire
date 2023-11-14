@@ -1,15 +1,13 @@
-package com.dreamhire.DreamHire.dto;
+package com.dreamhire.DreamHire.dto.response;
 
 import com.dreamhire.DreamHire.model.Company;
-import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class JobPostDto {
+public class JobPostResponseDto {
     private int id;
-    private String companyName;
     private Date postedDate;
     private String jobTitle;
     private String jobType;
@@ -27,4 +25,5 @@ public class JobPostDto {
     private String minSalary;
     private String maxSalary;
     private int numberOfVacancies;
+    private Company company;
 }

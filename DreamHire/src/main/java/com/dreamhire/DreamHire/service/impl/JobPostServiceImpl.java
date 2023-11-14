@@ -1,14 +1,18 @@
 package com.dreamhire.DreamHire.service.impl;
 
-import com.dreamhire.DreamHire.dto.JobPostDto;
-import com.dreamhire.DreamHire.dto.request.CompanyRegisterRequestDto;
+import com.dreamhire.DreamHire.dto.request.JobPostRequestDto;
+import com.dreamhire.DreamHire.dto.response.JobPostResponseDto;
+import com.dreamhire.DreamHire.exception.NotFoundException;
 import com.dreamhire.DreamHire.model.JobPost;
 import com.dreamhire.DreamHire.repository.CompanyRepo;
 import com.dreamhire.DreamHire.repository.JobPostRepo;
 import com.dreamhire.DreamHire.service.JobPostService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class JobPostServiceImpl implements JobPostService {
@@ -23,10 +27,34 @@ public class JobPostServiceImpl implements JobPostService {
     private CompanyRepo companyRepo;
 
     @Override
-    public String save(JobPostDto jobPostDto, int id) {
-        JobPost jobPost = modelMapper.map(jobPostDto,JobPost.class);
-        jobPost.setCompany(companyRepo.findById(id));
-        jobPostRepo.save(jobPost);
-        return "Job Post is Successfully Saved!";
+    public String save(JobPostRequestDto jobPostRequestDto, int id) {
+        JobPost jobPost = modelMapper.map(jobPostRequestDto,JobPost.class);
+        if(companyRepo.existsById(id)){
+            jobPost.setCompany(companyRepo.findById(id));
+            jobPostRepo.save(jobPost);
+            return "Job Post is Successfully Saved!";
+        }else {
+            throw new NotFoundException("Given CompanyId is invalid!");
+        }
+    }
+
+    @Override
+    public List<JobPostResponseDto> getAllJobPosts() {
+        List<JobPost> jobs = jobPostRepo.getAllByValidateIsTrue();
+        if(jobs.size()>0){
+            return modelMapper.map(jobs, new TypeToken<List<JobPostResponseDto>>(){}.getType());
+        }else {
+            throw new NotFoundException("Valid Jobs Are Not_Found!");
+        }
+    }
+
+    @Override
+    public JobPostResponseDto getJobPost(int id) {
+        if(jobPostRepo.existsById(id)){
+            JobPost job = jobPostRepo.findById(id);
+            return modelMapper.map(job, JobPostResponseDto.class);
+        }else {
+            throw new NotFoundException("JobPost is Not_Found!");
+        }
     }
 }
