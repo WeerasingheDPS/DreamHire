@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping("api/v1/company")
@@ -25,11 +27,19 @@ public class CompanyController {
         );
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<StandardResponse> get(@PathVariable int id) {
         CompanyDto company = companyService.getCompany(id);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(true, "Success", company, 200), HttpStatus.OK
+        );
+    }
+
+    @GetMapping
+    public ResponseEntity<StandardResponse> getAllCompanies() {
+        List<CompanyDto> companies = companyService.getAllCompanies();
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(true, "Success", companies, 200), HttpStatus.OK
         );
     }
 

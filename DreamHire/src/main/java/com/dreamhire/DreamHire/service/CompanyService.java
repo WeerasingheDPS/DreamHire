@@ -5,8 +5,12 @@ import com.dreamhire.DreamHire.dto.request.CompanyRegisterRequestDto;
 import com.dreamhire.DreamHire.model.Company;
 import com.dreamhire.DreamHire.model.SystemUser;
 
+import java.util.List;
+
 public interface CompanyService {
     String register(CompanyRegisterRequestDto companyRegisterRequestDto);
 
     CompanyDto getCompany(int id);
+
+    List<CompanyDto> getAllCompanies();
 }
