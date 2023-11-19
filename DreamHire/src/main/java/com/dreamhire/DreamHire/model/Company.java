@@ -1,18 +1,19 @@
 package com.dreamhire.DreamHire.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
+@Data
 @Table(name = "companies")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Company extends SystemUser {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     private String name;
     private String logo;

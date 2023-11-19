@@ -1,18 +1,22 @@
 package com.dreamhire.DreamHire.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Table(name = "job_posts")
-public class JobPost {
-
+public class JobPost{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private Date postedDate;
     private String jobTitle;
     private String jobType;

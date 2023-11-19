@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@Data
 @Entity
+@Data
 @Table(name = "apply_job_candidates")
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApplyJobCandidate {
+public class ApplyJobCandidate{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
