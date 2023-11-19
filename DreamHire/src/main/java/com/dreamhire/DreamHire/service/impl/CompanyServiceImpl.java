@@ -4,6 +4,7 @@ import com.dreamhire.DreamHire.dto.CandidateDto;
 import com.dreamhire.DreamHire.dto.CompanyDto;
 import com.dreamhire.DreamHire.dto.request.CompanyRegisterRequestDto;
 import com.dreamhire.DreamHire.exception.NotFoundException;
+import com.dreamhire.DreamHire.exception.RejectException;
 import com.dreamhire.DreamHire.model.Candidate;
 import com.dreamhire.DreamHire.model.Company;
 import com.dreamhire.DreamHire.repository.CompanyRepo;
@@ -24,9 +25,14 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyRepo companyRepo;
     @Override
     public String register(CompanyRegisterRequestDto companyRegisterRequestDto) {
-        Company company = modelMapper.map(companyRegisterRequestDto,Company.class);
-        companyRepo.save(company);
-        return "Company is Successfully Registered!";
+        if(companyRepo.existsByEmail(companyRegisterRequestDto.getEmail())){
+            throw new RejectException("Company is already registered!");
+        }else {
+            Company company = modelMapper.map(companyRegisterRequestDto,Company.class);
+            companyRepo.save(company);
+            return "Company is Successfully Registered!";
+        }
+
     }
 
     @Override

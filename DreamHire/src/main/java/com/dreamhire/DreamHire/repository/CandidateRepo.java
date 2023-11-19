@@ -12,6 +12,6 @@ import java.util.List;
 public interface CandidateRepo extends JpaRepository<Candidate, Integer> {
     Candidate findById(int id);
     boolean existsById(int id);
-
     List<Candidate> getAllByVisibleIsTrue();
+    boolean existsByEmail(String email);
 }

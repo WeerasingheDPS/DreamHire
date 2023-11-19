@@ -4,6 +4,7 @@ import com.dreamhire.DreamHire.dto.CompanyDto;
 import com.dreamhire.DreamHire.dto.request.CandidateRegisterRequestDto;
 import com.dreamhire.DreamHire.dto.response.JobPostResponseDto;
 import com.dreamhire.DreamHire.exception.NotFoundException;
+import com.dreamhire.DreamHire.exception.RejectException;
 import com.dreamhire.DreamHire.model.Candidate;
 import com.dreamhire.DreamHire.model.JobPost;
 import com.dreamhire.DreamHire.repository.CandidateRepo;
@@ -24,6 +25,9 @@ public class CandidateServiceImpl implements CandidateService {
     private CandidateRepo candidateRepo;
     @Override
     public String register(CandidateRegisterRequestDto candidateRegisterRequestDto) {
+        if(candidateRepo.existsByEmail(candidateRegisterRequestDto.getEmail())){
+            throw new RejectException("Candidate is already registered");
+        }
         candidateRepo.save(modelMapper.map(candidateRegisterRequestDto,Candidate.class));
         return "Candidate is Successfully Registered!";
     }
