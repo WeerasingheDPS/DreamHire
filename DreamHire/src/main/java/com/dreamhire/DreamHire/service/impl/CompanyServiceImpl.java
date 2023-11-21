@@ -12,6 +12,7 @@ import com.dreamhire.DreamHire.service.CompanyService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,12 +24,15 @@ public class CompanyServiceImpl implements CompanyService {
     private ModelMapper modelMapper;
     @Autowired
     private CompanyRepo companyRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Override
     public String register(CompanyRegisterRequestDto companyRegisterRequestDto) {
         if(companyRepo.existsByEmail(companyRegisterRequestDto.getEmail())){
             throw new RejectException("Company is already registered!");
         }else {
             Company company = modelMapper.map(companyRegisterRequestDto,Company.class);
+            company.setPassword(passwordEncoder.encode(companyRegisterRequestDto.getPassword()));
             companyRepo.save(company);
             return "Company is Successfully Registered!";
         }

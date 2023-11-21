@@ -12,6 +12,7 @@ import com.dreamhire.DreamHire.service.CandidateService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,12 +24,16 @@ public class CandidateServiceImpl implements CandidateService {
     private ModelMapper modelMapper;
     @Autowired
     private CandidateRepo candidateRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Override
     public String register(CandidateRegisterRequestDto candidateRegisterRequestDto) {
         if(candidateRepo.existsByEmail(candidateRegisterRequestDto.getEmail())){
             throw new RejectException("Candidate is already registered");
         }
-        candidateRepo.save(modelMapper.map(candidateRegisterRequestDto,Candidate.class));
+        Candidate candidate = modelMapper.map(candidateRegisterRequestDto,Candidate.class);
+        candidate.setPassword(passwordEncoder.encode(candidateRegisterRequestDto.getPassword()));
+        candidateRepo.save(candidate);
         return "Candidate is Successfully Registered!";
     }
 

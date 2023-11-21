@@ -1,6 +1,7 @@
 package com.dreamhire.DreamHire.model;
 
 import com.dreamhire.DreamHire.util.enums.UserType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +19,9 @@ public class SystemUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(unique = true)
     private String email;
+    @JsonIgnore
     private String password;
 
     @Enumerated(value = EnumType.STRING)
