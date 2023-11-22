@@ -2,7 +2,6 @@ package com.dreamhire.DreamHire.controller;
 
 import com.dreamhire.DreamHire.dto.request.EventRequestDto;
 import com.dreamhire.DreamHire.dto.response.EventResponseDto;
-import com.dreamhire.DreamHire.model.Event;
 import com.dreamhire.DreamHire.service.EventService;
 import com.dreamhire.DreamHire.util.response.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
