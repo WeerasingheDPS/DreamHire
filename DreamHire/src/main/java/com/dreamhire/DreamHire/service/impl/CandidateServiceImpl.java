@@ -9,6 +9,7 @@ import com.dreamhire.DreamHire.model.Candidate;
 import com.dreamhire.DreamHire.model.JobPost;
 import com.dreamhire.DreamHire.repository.CandidateRepo;
 import com.dreamhire.DreamHire.service.CandidateService;
+import com.dreamhire.DreamHire.util.enums.UserType;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class CandidateServiceImpl implements CandidateService {
             throw new RejectException("Candidate is already registered");
         }
         Candidate candidate = modelMapper.map(candidateRegisterRequestDto,Candidate.class);
+        candidate.setUserType("ROLE_" + UserType.CANDIDATE);
         candidate.setPassword(passwordEncoder.encode(candidateRegisterRequestDto.getPassword()));
         candidateRepo.save(candidate);
         return "Candidate is Successfully Registered!";

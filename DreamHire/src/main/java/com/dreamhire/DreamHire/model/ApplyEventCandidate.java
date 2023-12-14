@@ -14,7 +14,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "apply_job_candidate")
+@Table(name = "apply_event_candidate")
 public class ApplyEventCandidate {
 
     @Id
@@ -22,25 +22,15 @@ public class ApplyEventCandidate {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "job_id")
-    private JobPost jobPost;
+    @JoinColumn(name = "event_id")
+    private Event event;
 
     @ManyToOne
     @JoinColumn(name = "can_id")
     private Candidate candidate;
 
-    @Enumerated(value = EnumType.STRING)
-    private CandidateType candidateType = CandidateType.pending;
-    private Date appliedDate;
-    @Column(columnDefinition = "TEXT")
-    private String reason;
     private String candidateName;
     private String candidatePhone;
     private String candidateEmail;
-    private String candidateCity;
-    private String currency;
-    private String expectSalary;
-    private String jobTitle;
-    @Column(length = 500)
-    private String tags;
+    private String candidateAddress;
 }

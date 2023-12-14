@@ -11,11 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Company extends SystemUser {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
     private String name;
+
     private String logo;
 
     @Column(columnDefinition = "TEXT")
@@ -34,9 +32,13 @@ public class Company extends SystemUser {
     private String serviceKeys;
 
     private boolean visible = true;
+
     private boolean approval = false;
+
     private boolean payment = false;
+
     private boolean reject = false;
+
     private String phone;
 
     @Column(length = 500)

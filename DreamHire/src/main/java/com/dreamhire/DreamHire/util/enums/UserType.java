@@ -1,5 +1,5 @@
 package com.dreamhire.DreamHire.util.enums;
 
 public enum UserType {
-    candidate,company,admin,interview,marketing
+    CANDIDATE, COMPANY, ADMIN, INTERVIEW, MARKETING
 }

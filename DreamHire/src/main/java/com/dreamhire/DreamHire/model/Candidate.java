@@ -12,16 +12,19 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Inheritance
 public class Candidate extends SystemUser {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     private String title;
+
     private Date birthday;
+
     private String city;
+
     private String name;
+
     private boolean visible = true;
+
     private String profilePicture;
 
     @Column(columnDefinition = "TEXT")
@@ -42,6 +45,8 @@ public class Candidate extends SystemUser {
     private String linkedIn;
 
     private String currency;
+
     private String minSalary;
+
     private String maxSalary;
 }

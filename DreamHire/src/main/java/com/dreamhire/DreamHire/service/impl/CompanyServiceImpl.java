@@ -9,6 +9,7 @@ import com.dreamhire.DreamHire.model.Candidate;
 import com.dreamhire.DreamHire.model.Company;
 import com.dreamhire.DreamHire.repository.CompanyRepo;
 import com.dreamhire.DreamHire.service.CompanyService;
+import com.dreamhire.DreamHire.util.enums.UserType;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,10 @@ public class CompanyServiceImpl implements CompanyService {
         }else {
             Company company = modelMapper.map(companyRegisterRequestDto,Company.class);
             company.setPassword(passwordEncoder.encode(companyRegisterRequestDto.getPassword()));
+            company.setUserType("ROLE_" + UserType.COMPANY);
             companyRepo.save(company);
             return "Company is Successfully Registered!";
         }
-
     }
 
     @Override

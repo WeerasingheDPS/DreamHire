@@ -1,7 +1,8 @@
 package com.dreamhire.DreamHire.service;
 
 import com.dreamhire.DreamHire.dto.ApplyJobDto;
+import com.dreamhire.DreamHire.dto.request.ApplyEventCanRequestDto;
 
 public interface ApplyEventCanService {
-    String save(ApplyJobDto applyJobDto, int id);
+    String save(ApplyEventCanRequestDto applyEventCanRequestDto, int id);
 }

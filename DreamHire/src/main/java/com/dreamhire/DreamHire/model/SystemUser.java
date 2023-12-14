@@ -1,6 +1,5 @@
 package com.dreamhire.DreamHire.model;
 
-import com.dreamhire.DreamHire.util.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,6 +23,5 @@ public class SystemUser {
     @JsonIgnore
     private String password;
 
-    @Enumerated(value = EnumType.STRING)
-    private UserType userType;
+    private String userType;
 }

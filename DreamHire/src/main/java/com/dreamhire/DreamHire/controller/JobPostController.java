@@ -7,6 +7,7 @@ import com.dreamhire.DreamHire.util.response.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class JobPostController {
 
     @Autowired
     private JobPostService jobPostService;
+    @PreAuthorize("hasAnyRole('COMPANY', 'ACCOUNT')")
     @PostMapping("/save/{id}")
     public ResponseEntity<StandardResponse> save(@PathVariable int id, @RequestBody JobPostRequestDto jobPostRequestDto) {
         String message = jobPostService.save(jobPostRequestDto, id);

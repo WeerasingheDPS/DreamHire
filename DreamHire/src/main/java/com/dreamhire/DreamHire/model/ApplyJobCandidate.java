@@ -1,11 +1,9 @@
 package com.dreamhire.DreamHire.model;
-
-import com.dreamhire.DreamHire.util.enums.CandidateStatus;
+import com.dreamhire.DreamHire.util.enums.CandidateType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 @Entity
@@ -28,7 +26,7 @@ public class ApplyJobCandidate{
     private Candidate candidate;
 
     @Enumerated(value = EnumType.STRING)
-    private CandidateStatus candidateType=CandidateStatus.pending;
+    private CandidateType candidateType = CandidateType.PENDING;
     private Date appliedDate;
     @Column(columnDefinition = "TEXT")
     private String reason;
