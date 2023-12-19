@@ -1,8 +1,7 @@
 package com.dreamhire.DreamHire.service.impl;
 
 import com.dreamhire.DreamHire.dto.ApplyJobDto;
-import com.dreamhire.DreamHire.exception.NotFoundException;
-import com.dreamhire.DreamHire.exception.RejectException;
+import com.dreamhire.DreamHire.exception.DreamHireException;
 import com.dreamhire.DreamHire.model.ApplyJobCandidate;
 import com.dreamhire.DreamHire.repository.ApplyJobCandidateRepo;
 import com.dreamhire.DreamHire.repository.CandidateRepo;
@@ -23,22 +22,22 @@ public class ApplyJobCandidateServiceImpl implements ApplyJobCandidateService {
     @Autowired
     private ModelMapper modelMapper;
     @Override
-    public String save(ApplyJobDto applyJobDto, int id) {
+    public ApplyJobDto save(ApplyJobDto applyJobDto, int id) {
         if (applyJobCandidateRepo.existsByCandidateIdAndJobPostId(id, applyJobDto.getJobID())){
-            throw new RejectException("You have already applied this job!");
+            throw new DreamHireException("You have already applied this job!");
         }else {
             ApplyJobCandidate applyJobCandidate = modelMapper.map(applyJobDto,ApplyJobCandidate.class);
             if(jobPostRepo.existsById(applyJobDto.getJobID())){
                 applyJobCandidate.setJobPost(jobPostRepo.findById(applyJobDto.getJobID()));
             }else {
-                throw new NotFoundException("JobPostId is invalid!");
+                throw new DreamHireException("JobPostId is invalid!");
             }
             if(candidateRepo.existsById(id)){
                 applyJobCandidate.setCandidate(candidateRepo.findById(id));
-                applyJobCandidateRepo.save(applyJobCandidate);
-                return "Successfully Saved!";
+                ApplyJobCandidate savedApplyJobCandidate =  applyJobCandidateRepo.save(applyJobCandidate);
+                return modelMapper.map(savedApplyJobCandidate, ApplyJobDto.class);
             }else {
-                throw new NotFoundException("CandidateId is invalid!");
+                throw new DreamHireException("CandidateId is invalid!");
             }
         }
     }

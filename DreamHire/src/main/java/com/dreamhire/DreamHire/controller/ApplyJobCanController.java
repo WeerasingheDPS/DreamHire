@@ -19,9 +19,13 @@ public class ApplyJobCanController {
     @PreAuthorize("hasRole('CANDIDATE')")
     @PostMapping("/save/{id}")
     public ResponseEntity<StandardResponse> save(@PathVariable int id, @RequestBody ApplyJobDto applyJobDto){
-        String message = applyJobCandidateService.save(applyJobDto, id);
+        ApplyJobDto applyJob = applyJobCandidateService.save(applyJobDto, id);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(true, message, null, 201), HttpStatus.CREATED
+                StandardResponse
+                        .builder()
+                        .result(applyJob)
+                        .success(true)
+                        .build(), HttpStatus.CREATED
         );
     }
 }

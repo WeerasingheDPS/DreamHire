@@ -11,7 +11,6 @@ import java.util.Collections;
 public class CustomUserDetails implements UserDetails {
     private String email;
     private String password;
-
     private String userType;
 
     public  CustomUserDetails (SystemUser user){

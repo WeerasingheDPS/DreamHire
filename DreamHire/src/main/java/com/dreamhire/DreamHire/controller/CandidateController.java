@@ -24,16 +24,24 @@ public class CandidateController {
 
     @PostMapping("/register")
     public ResponseEntity<StandardResponse> register(@RequestBody CandidateRegisterRequestDto candidateRegisterRequestDto){
-        String message = candidateService.register(candidateRegisterRequestDto);
+        CandidateDto candidate = candidateService.register(candidateRegisterRequestDto);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(true, message, null, 201), HttpStatus.CREATED
+                StandardResponse
+                        .builder()
+                        .result(candidate)
+                        .success(true)
+                        .build(), HttpStatus.CREATED
         );
     }
     @GetMapping("/{id}")
     public ResponseEntity<StandardResponse> getCandidate(@PathVariable int id){
         CandidateDto candidate = candidateService.getCandidate(id);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(true, "success", candidate, 200), HttpStatus.OK
+                StandardResponse
+                        .builder()
+                        .result(candidate)
+                        .success(true)
+                        .build(), HttpStatus.OK
         );
     }
 
@@ -41,7 +49,11 @@ public class CandidateController {
     public ResponseEntity<StandardResponse> getAllCandidates(){
         List<CandidateDto> candidates = candidateService.getAllCandidates();
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(true, "success", candidates, 200), HttpStatus.OK
+                StandardResponse
+                        .builder()
+                        .result(candidates)
+                        .success(true)
+                        .build(), HttpStatus.OK
         );
     }
 

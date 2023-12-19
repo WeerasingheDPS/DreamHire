@@ -6,7 +6,7 @@ import com.dreamhire.DreamHire.model.Event;
 import org.springframework.stereotype.Service;
 
 public interface EventService {
-    String save(EventRequestDto eventRequestDto, int id);
+    EventResponseDto save(EventRequestDto eventRequestDto, int id);
 
     EventResponseDto get(int id);
 

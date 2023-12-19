@@ -1,5 +1,6 @@
 package com.dreamhire.DreamHire.service.impl;
 
+import com.dreamhire.DreamHire.dto.ApplyEventDto;
 import com.dreamhire.DreamHire.dto.ApplyJobDto;
 import com.dreamhire.DreamHire.dto.request.ApplyEventCanRequestDto;
 import com.dreamhire.DreamHire.model.ApplyEventCandidate;
@@ -25,11 +26,11 @@ public class ApplyEventCanServiceImpl implements ApplyEventCanService {
 
 
     @Override
-    public String save(ApplyEventCanRequestDto applyEventCanRequestDto, int id) {
+    public ApplyEventDto save(ApplyEventCanRequestDto applyEventCanRequestDto, int id) {
         ApplyEventCandidate applyEventCandidate = modelMapper.map(applyEventCanRequestDto, ApplyEventCandidate.class);
         applyEventCandidate.setCandidate(candidateRepo.findById(id));
         applyEventCandidate.setEvent(eventRepo.findById(applyEventCanRequestDto.getEventId()));
-        applyEventCandidateRepo.save(applyEventCandidate);
-        return "Success";
+        ApplyEventCandidate saveApplyEventCandidate = applyEventCandidateRepo.save(applyEventCandidate);
+        return modelMapper.map(saveApplyEventCandidate, ApplyEventDto.class);
     }
 }

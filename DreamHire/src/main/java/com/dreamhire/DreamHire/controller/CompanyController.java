@@ -21,9 +21,13 @@ public class CompanyController {
     private CompanyService companyService;
     @PostMapping("/register")
     public ResponseEntity<StandardResponse> register(@RequestBody CompanyRegisterRequestDto companyRegisterRequestDto) {
-        String message = companyService.register(companyRegisterRequestDto);
+        CompanyDto company = companyService.register(companyRegisterRequestDto);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(true, message, null, 201), HttpStatus.CREATED
+                StandardResponse
+                        .builder()
+                        .result(company)
+                        .success(true)
+                        .build(), HttpStatus.CREATED
         );
     }
 
@@ -31,7 +35,11 @@ public class CompanyController {
     public ResponseEntity<StandardResponse> get(@PathVariable int id) {
         CompanyDto company = companyService.getCompany(id);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(true, "Success", company, 200), HttpStatus.OK
+                StandardResponse
+                        .builder()
+                        .result(company)
+                        .success(true)
+                        .build(), HttpStatus.OK
         );
     }
 
@@ -39,7 +47,11 @@ public class CompanyController {
     public ResponseEntity<StandardResponse> getAllCompanies() {
         List<CompanyDto> companies = companyService.getAllCompanies();
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(true, "Success", companies, 200), HttpStatus.OK
+                StandardResponse
+                        .builder()
+                        .result(companies)
+                        .success(true)
+                        .build(), HttpStatus.OK
         );
     }
 

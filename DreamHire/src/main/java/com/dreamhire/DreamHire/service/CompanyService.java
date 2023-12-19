@@ -8,7 +8,7 @@ import com.dreamhire.DreamHire.model.SystemUser;
 import java.util.List;
 
 public interface CompanyService {
-    String register(CompanyRegisterRequestDto companyRegisterRequestDto);
+    CompanyDto register(CompanyRegisterRequestDto companyRegisterRequestDto);
 
     CompanyDto getCompany(int id);
 

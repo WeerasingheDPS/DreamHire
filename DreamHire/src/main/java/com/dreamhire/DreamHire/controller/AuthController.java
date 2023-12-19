@@ -20,7 +20,11 @@ public class AuthController {
     public ResponseEntity<StandardResponse> loginUser(@RequestBody LoginRequest loginRequest){
         LoginResponseDto loginResponse = authService.login(loginRequest);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(true, "success", loginResponse, 200),
+                StandardResponse
+                        .builder()
+                        .result(loginResponse)
+                        .success(true)
+                        .build(),
                 HttpStatus.OK);
     }
 }

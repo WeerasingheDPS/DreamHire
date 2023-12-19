@@ -21,9 +21,13 @@ public class EventController {
     @PreAuthorize("hasAnyRole('COMPANY', 'ACCOUNT')")
     @PostMapping("/save/{id}")
     public ResponseEntity<StandardResponse> saveEvent(@PathVariable int id, @RequestBody EventRequestDto eventRequestDto) {
-        String message = eventService.save(eventRequestDto, id);
+        EventResponseDto eventResponse = eventService.save(eventRequestDto, id);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(true, message, null, 201), HttpStatus.CREATED
+                StandardResponse
+                        .builder()
+                        .result(eventResponse)
+                        .success(true)
+                        .build(), HttpStatus.CREATED
         );
     }
 
@@ -31,7 +35,11 @@ public class EventController {
     public ResponseEntity<StandardResponse> getEvent(@PathVariable int id) {
         EventResponseDto event = eventService.get(id);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(true, "Success", event, 200), HttpStatus.OK
+                StandardResponse
+                        .builder()
+                        .result(null)
+                        .success(true)
+                        .build(), HttpStatus.OK
         );
     }
 }

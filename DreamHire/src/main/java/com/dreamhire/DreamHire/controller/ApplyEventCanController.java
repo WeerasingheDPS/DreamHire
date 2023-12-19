@@ -1,5 +1,6 @@
 package com.dreamhire.DreamHire.controller;
 
+import com.dreamhire.DreamHire.dto.ApplyEventDto;
 import com.dreamhire.DreamHire.dto.ApplyJobDto;
 import com.dreamhire.DreamHire.dto.request.ApplyEventCanRequestDto;
 import com.dreamhire.DreamHire.service.ApplyEventCanService;
@@ -22,9 +23,13 @@ public class ApplyEventCanController {
     @PreAuthorize("hasRole('CANDIDATE')")
     @PostMapping("/save/{id}")
     public ResponseEntity<StandardResponse> save(@PathVariable int id, @RequestBody ApplyEventCanRequestDto applyEventCanRequestDto){
-        String message = applyEventCanService.save(applyEventCanRequestDto, id);
+        ApplyEventDto applyEvent = applyEventCanService.save(applyEventCanRequestDto, id);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(true, message, null, 201), HttpStatus.CREATED
+                StandardResponse
+                        .builder()
+                        .result(applyEvent)
+                        .success(true)
+                        .build(), HttpStatus.CREATED
         );
     }
 }

@@ -1,14 +1,11 @@
 package com.dreamhire.DreamHire.service.impl;
 import com.dreamhire.DreamHire.dto.CandidateDto;
-import com.dreamhire.DreamHire.dto.CompanyDto;
 import com.dreamhire.DreamHire.dto.request.CandidateRegisterRequestDto;
-import com.dreamhire.DreamHire.dto.response.JobPostResponseDto;
-import com.dreamhire.DreamHire.exception.NotFoundException;
-import com.dreamhire.DreamHire.exception.RejectException;
+import com.dreamhire.DreamHire.exception.DreamHireException;
 import com.dreamhire.DreamHire.model.Candidate;
-import com.dreamhire.DreamHire.model.JobPost;
 import com.dreamhire.DreamHire.repository.CandidateRepo;
 import com.dreamhire.DreamHire.service.CandidateService;
+import com.dreamhire.DreamHire.util.enums.ErrorEnum;
 import com.dreamhire.DreamHire.util.enums.UserType;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -28,15 +25,17 @@ public class CandidateServiceImpl implements CandidateService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Override
-    public String register(CandidateRegisterRequestDto candidateRegisterRequestDto) {
+    public CandidateDto register(CandidateRegisterRequestDto candidateRegisterRequestDto) {
         if(candidateRepo.existsByEmail(candidateRegisterRequestDto.getEmail())){
-            throw new RejectException("Candidate is already registered");
+            throw new DreamHireException(ErrorEnum.ERROR_DUPLICATE_EMAIL,
+                    "Candidate is already registered with this email: " +
+                            candidateRegisterRequestDto.getEmail());
         }
         Candidate candidate = modelMapper.map(candidateRegisterRequestDto,Candidate.class);
         candidate.setUserType("ROLE_" + UserType.CANDIDATE);
         candidate.setPassword(passwordEncoder.encode(candidateRegisterRequestDto.getPassword()));
-        candidateRepo.save(candidate);
-        return "Candidate is Successfully Registered!";
+        Candidate savedCandidate = candidateRepo.save(candidate);
+        return modelMapper.map(savedCandidate, CandidateDto.class) ;
     }
 
     @Override
@@ -44,7 +43,7 @@ public class CandidateServiceImpl implements CandidateService {
         if(candidateRepo.existsById(id)){
             return modelMapper.map(candidateRepo.findById(id), CandidateDto.class);
         }else {
-            throw new NotFoundException("Candidate is Not_Found!");
+            throw new DreamHireException("Candidate is Not_Found!");
         }
     }
 
@@ -54,7 +53,7 @@ public class CandidateServiceImpl implements CandidateService {
         if(candidates.size()>0){
             return modelMapper.map(candidates, new TypeToken<List<CandidateDto>>(){}.getType());
         }else {
-            throw new NotFoundException("Candidates Are Not_Found!");
+            throw new DreamHireException("Candidates Are Not_Found!");
         }
     }
 }

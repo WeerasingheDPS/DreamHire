@@ -2,7 +2,7 @@ package com.dreamhire.DreamHire.service.impl;
 
 import com.dreamhire.DreamHire.dto.request.EventRequestDto;
 import com.dreamhire.DreamHire.dto.response.EventResponseDto;
-import com.dreamhire.DreamHire.exception.NotFoundException;
+import com.dreamhire.DreamHire.exception.DreamHireException;
 import com.dreamhire.DreamHire.model.Event;
 import com.dreamhire.DreamHire.repository.CompanyRepo;
 import com.dreamhire.DreamHire.repository.EventRepo;
@@ -21,11 +21,11 @@ public class EventServiceImpl implements EventService {
     @Autowired
     private CompanyRepo companyRepo;
     @Override
-    public String save(EventRequestDto eventRequestDto, int id) {
+    public EventResponseDto save(EventRequestDto eventRequestDto, int id) {
         Event event = modelMapper.map(eventRequestDto, Event.class);
         event.setCompany(companyRepo.findById(id));
-        eventRepo.save(event);
-        return "Event is saved successfully";
+        Event savedEvent = eventRepo.save(event);
+        return modelMapper.map(savedEvent, EventResponseDto.class);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class EventServiceImpl implements EventService {
             Event event = eventRepo.findById(id);
             return modelMapper.map(event, EventResponseDto.class);
         }else {
-            throw new NotFoundException("Event is Not_Found");
+            throw new DreamHireException("Event is Not_Found");
         }
 
     }
