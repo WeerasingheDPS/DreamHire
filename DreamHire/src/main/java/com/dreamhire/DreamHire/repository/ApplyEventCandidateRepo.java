@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 @EnableJpaRepositories
 public interface ApplyEventCandidateRepo extends JpaRepository<ApplyEventCandidate, Integer> {
+
+    boolean existsByCandidateIdAndEventId(int id, int eventId);
 }

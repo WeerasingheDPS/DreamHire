@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
 @Table(name = "companies")
@@ -55,4 +58,5 @@ public class Company extends SystemUser {
 
     @Column(length = 500)
     private String registration;
+
 }

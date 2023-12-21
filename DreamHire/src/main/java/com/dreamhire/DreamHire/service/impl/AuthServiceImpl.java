@@ -1,10 +1,12 @@
 package com.dreamhire.DreamHire.service.impl;
 import com.dreamhire.DreamHire.dto.request.LoginRequest;
 import com.dreamhire.DreamHire.dto.response.LoginResponseDto;
+import com.dreamhire.DreamHire.exception.DreamHireException;
 import com.dreamhire.DreamHire.model.SystemUser;
 import com.dreamhire.DreamHire.repository.SystemUserRepo;
 import com.dreamhire.DreamHire.service.AuthService;
 import com.dreamhire.DreamHire.service.JwtService;
+import com.dreamhire.DreamHire.util.enums.ErrorEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -47,7 +49,8 @@ public class AuthServiceImpl implements AuthService {
             SystemUser user = getUser(loginRequest.getEmail());
             return new LoginResponseDto(token, user);
         }else{
-            throw new RuntimeException("Invalid email or password!");
+            throw new DreamHireException(ErrorEnum.ERROR_INVALID_EMAIL_OR_PASSWORD,
+                    "Invalid email or password!");
         }
     }
 }

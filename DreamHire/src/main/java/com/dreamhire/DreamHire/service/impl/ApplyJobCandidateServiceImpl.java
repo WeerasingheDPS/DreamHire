@@ -7,6 +7,7 @@ import com.dreamhire.DreamHire.repository.ApplyJobCandidateRepo;
 import com.dreamhire.DreamHire.repository.CandidateRepo;
 import com.dreamhire.DreamHire.repository.JobPostRepo;
 import com.dreamhire.DreamHire.service.ApplyJobCandidateService;
+import com.dreamhire.DreamHire.util.enums.ErrorEnum;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,20 +25,20 @@ public class ApplyJobCandidateServiceImpl implements ApplyJobCandidateService {
     @Override
     public ApplyJobDto save(ApplyJobDto applyJobDto, int id) {
         if (applyJobCandidateRepo.existsByCandidateIdAndJobPostId(id, applyJobDto.getJobID())){
-            throw new DreamHireException("You have already applied this job!");
+            throw new DreamHireException(ErrorEnum.ERROR_DUPLICATE_ID, "You have already applied this job!");
         }else {
             ApplyJobCandidate applyJobCandidate = modelMapper.map(applyJobDto,ApplyJobCandidate.class);
             if(jobPostRepo.existsById(applyJobDto.getJobID())){
                 applyJobCandidate.setJobPost(jobPostRepo.findById(applyJobDto.getJobID()));
             }else {
-                throw new DreamHireException("JobPostId is invalid!");
+                throw new DreamHireException(ErrorEnum.ERROR_INVALID_ID, "No job post for this id: " + applyJobDto.getJobID());
             }
             if(candidateRepo.existsById(id)){
                 applyJobCandidate.setCandidate(candidateRepo.findById(id));
                 ApplyJobCandidate savedApplyJobCandidate =  applyJobCandidateRepo.save(applyJobCandidate);
                 return modelMapper.map(savedApplyJobCandidate, ApplyJobDto.class);
             }else {
-                throw new DreamHireException("CandidateId is invalid!");
+                throw new DreamHireException(ErrorEnum.ERROR_INVALID_ID, "No Candidate for this id: " + id);
             }
         }
     }
