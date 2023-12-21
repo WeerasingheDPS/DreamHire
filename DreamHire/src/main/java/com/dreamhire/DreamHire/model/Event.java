@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Table(name = "events")
 @Data
-public class Event{
+public class Event extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,6 @@ public class Event{
     @Column(length = 4000)
     private String companies;
     private Date date;
-    private Date postedDate;
     private Date startTime;
     private Date endTime;
     private String email;

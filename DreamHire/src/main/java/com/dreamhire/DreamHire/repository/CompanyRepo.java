@@ -15,4 +15,6 @@ public interface CompanyRepo extends JpaRepository<Company, Integer> {
     boolean existsById(int id);
     List<Company> getAllByVisibleIsTrue();
     boolean existsByEmail(String email);
+
+    List<Company> getAllByApprovalIsFalseAndRegistrationIsNotNull();
 }

@@ -48,9 +48,8 @@ public class AuthServiceImpl implements AuthService {
             String token = genarateToken(loginRequest.getEmail());
             SystemUser user = getUser(loginRequest.getEmail());
             return new LoginResponseDto(token, user);
-        }else{
-            throw new DreamHireException(ErrorEnum.ERROR_INVALID_EMAIL_OR_PASSWORD,
-                    "Invalid email or password!");
-        }
+        }else throw new DreamHireException(ErrorEnum.ERROR_INVALID_EMAIL_OR_PASSWORD,
+                "Invalid email or password!");
+
     }
 }

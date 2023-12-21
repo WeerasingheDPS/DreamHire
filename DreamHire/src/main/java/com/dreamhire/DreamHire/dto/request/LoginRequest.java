@@ -1,7 +1,6 @@
 package com.dreamhire.DreamHire.dto.request;
 
 import lombok.Data;
-
 @Data
 public class LoginRequest {
 

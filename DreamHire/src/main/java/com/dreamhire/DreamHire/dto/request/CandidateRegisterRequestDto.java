@@ -2,8 +2,7 @@ package com.dreamhire.DreamHire.dto.request;
 
 import lombok.Data;
 
-import java.util.Date;
-
+import java.time.LocalDateTime;
 @Data
 public class CandidateRegisterRequestDto {
     private int id;
@@ -11,7 +10,7 @@ public class CandidateRegisterRequestDto {
     private String email;
     private String password;
     private String title;
-    private Date birthday;
+    private LocalDateTime birthday;
     private String city;
     private String name;
     private boolean visible = true;

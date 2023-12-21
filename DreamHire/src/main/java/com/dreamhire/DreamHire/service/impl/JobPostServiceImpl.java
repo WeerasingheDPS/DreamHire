@@ -7,6 +7,7 @@ import com.dreamhire.DreamHire.model.JobPost;
 import com.dreamhire.DreamHire.repository.CompanyRepo;
 import com.dreamhire.DreamHire.repository.JobPostRepo;
 import com.dreamhire.DreamHire.service.JobPostService;
+import com.dreamhire.DreamHire.util.enums.ErrorEnum;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class JobPostServiceImpl implements JobPostService {
             JobPost savedJob = jobPostRepo.save(jobPost);
             return modelMapper.map(savedJob, JobPostResponseDto.class);
         }else {
-            throw new DreamHireException("Given CompanyId is invalid!");
+            throw new DreamHireException(ErrorEnum.ERROR_NOT_FOUND, "Given CompanyId is invalid!");
         }
     }
 
@@ -44,7 +45,7 @@ public class JobPostServiceImpl implements JobPostService {
         if(jobs.size()>0){
             return modelMapper.map(jobs, new TypeToken<List<JobPostResponseDto>>(){}.getType());
         }else {
-            throw new DreamHireException("Valid Jobs Are Not_Found!");
+            throw new DreamHireException(ErrorEnum.ERROR_NOT_FOUND, "Valid Jobs Are Not_Found!");
         }
     }
 
@@ -54,7 +55,7 @@ public class JobPostServiceImpl implements JobPostService {
             JobPost job = jobPostRepo.findById(id);
             return modelMapper.map(job, JobPostResponseDto.class);
         }else {
-            throw new DreamHireException("JobPost is Not_Found!");
+            throw new DreamHireException(ErrorEnum.ERROR_NOT_FOUND, "JobPost is Not_Found!");
         }
     }
 }

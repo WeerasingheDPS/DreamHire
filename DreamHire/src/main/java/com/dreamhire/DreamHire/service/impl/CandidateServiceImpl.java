@@ -42,9 +42,7 @@ public class CandidateServiceImpl implements CandidateService {
     public CandidateDto getCandidate(int id) {
         if(candidateRepo.existsById(id)){
             return modelMapper.map(candidateRepo.findById(id), CandidateDto.class);
-        }else {
-            throw new DreamHireException("Candidate is Not_Found!");
-        }
+        }else throw new DreamHireException(ErrorEnum.ERROR_NOT_FOUND, "Candidate is Not_Found with id: " + id);
     }
 
     @Override
@@ -52,8 +50,7 @@ public class CandidateServiceImpl implements CandidateService {
         List<Candidate> candidates = candidateRepo.getAllByVisibleIsTrue();
         if(candidates.size()>0){
             return modelMapper.map(candidates, new TypeToken<List<CandidateDto>>(){}.getType());
-        }else {
-            throw new DreamHireException("Candidates Are Not_Found!");
-        }
+        }else throw new DreamHireException(ErrorEnum.ERROR_NOT_FOUND, "Candidates Are Not_Found!");
+
     }
 }

@@ -1,19 +1,15 @@
 package com.dreamhire.DreamHire.dto.request;
 
-import com.dreamhire.DreamHire.model.Company;
 import lombok.Data;
-
-import java.util.Date;
-
+import java.time.LocalDateTime;
 @Data
 public class JobPostRequestDto {
 
-    private Date postedDate;
     private String jobTitle;
     private String jobType;
     private String experience;
     private String education;
-    private Date deadline;
+    private LocalDateTime deadline;
     private String description;
     private String howToApply;
     private String jobRequirements;
@@ -24,4 +20,5 @@ public class JobPostRequestDto {
     private String minSalary;
     private String maxSalary;
     private int numberOfVacancies;
+    private boolean validate = true;
 }

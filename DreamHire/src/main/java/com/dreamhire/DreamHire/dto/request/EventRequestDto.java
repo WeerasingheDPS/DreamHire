@@ -1,8 +1,8 @@
 package com.dreamhire.DreamHire.dto.request;
 
-import com.dreamhire.DreamHire.model.Company;
 import lombok.Data;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 
 @Data
 public class EventRequestDto {
@@ -12,10 +12,9 @@ public class EventRequestDto {
     private String description;
     private String cover;
     private String companies;
-    private Date date;
-    private Date postedDate;
-    private Date startTime;
-    private Date endTime;
+    private LocalDateTime date;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private String email;
     private String phone;
     private boolean validate = true;

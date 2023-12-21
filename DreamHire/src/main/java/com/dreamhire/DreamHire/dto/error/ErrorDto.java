@@ -1,6 +1,7 @@
 package com.dreamhire.DreamHire.dto.error;
 
 import com.dreamhire.DreamHire.exception.DreamHireException;
+import com.dreamhire.DreamHire.util.enums.ErrorEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +29,14 @@ public class ErrorDto {
                 .description(StringUtils.hasText(ex.getDescription())? ex.getDescription(): ex.getMessage())
                 .errorId(!ObjectUtils.isEmpty(ex.getErrorEnum().getErrorId())? ex.getErrorEnum().getErrorId() : 0);
 
+        return error.build();
+    }
+
+    public static  ErrorDto generateFromErrorEnum(final ErrorEnum errorEnum){
+        var error = ErrorDto.builder();
+        error.errorCode(errorEnum.getErrorCode())
+                .description(errorEnum.getDescription())
+                .errorId(errorEnum.getErrorId());
         return error.build();
     }
 }

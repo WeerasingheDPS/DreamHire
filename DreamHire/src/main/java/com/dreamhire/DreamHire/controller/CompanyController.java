@@ -43,9 +43,36 @@ public class CompanyController {
         );
     }
 
-    @GetMapping
+    @GetMapping(path = "getAll")
     public ResponseEntity<StandardResponse> getAllCompanies() {
         List<CompanyDto> companies = companyService.getAllCompanies();
+        return new ResponseEntity<StandardResponse>(
+                StandardResponse
+                        .builder()
+                        .result(companies)
+                        .success(true)
+                        .build(), HttpStatus.OK
+        );
+    }
+
+    @PostMapping(path = "saveBr")
+    public ResponseEntity<StandardResponse> saveBusinessReport(
+            @PathVariable int id,
+            @RequestParam String businessReport
+            ) {
+        String message = companyService.saveBr(id, businessReport);
+        return new ResponseEntity<StandardResponse>(
+                StandardResponse
+                        .builder()
+                        .result(message)
+                        .success(true)
+                        .build(), HttpStatus.OK
+        );
+    }
+
+    @PostMapping(path = "getPendingApprovals")
+    public ResponseEntity<StandardResponse> getPendingApprovalCompaniesWithRegistration() {
+        List<CompanyDto> companies = companyService.getPendingApprovalCompanies();
         return new ResponseEntity<StandardResponse>(
                 StandardResponse
                         .builder()

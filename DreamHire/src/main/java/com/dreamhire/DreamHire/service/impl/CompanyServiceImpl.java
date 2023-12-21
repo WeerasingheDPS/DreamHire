@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.dreamhire.DreamHire.util.enums.ErrorEnum.ERROR_NOT_FOUND;
+
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
@@ -45,18 +47,35 @@ public class CompanyServiceImpl implements CompanyService {
     public CompanyDto getCompany(int id) {
         if(companyRepo.existsById(id)){
             return modelMapper.map(companyRepo.findById(id),CompanyDto.class);
-        }else {
-            throw new DreamHireException("Company is Not_Found!");
-        }
+        }else throw new DreamHireException(ERROR_NOT_FOUND, "Company is Not_Found with this id: " + id);
+
     }
 
     @Override
     public List<CompanyDto> getAllCompanies() {
         List<Company> companies = companyRepo.getAllByVisibleIsTrue();
         if(companies.size()>0){
-            return modelMapper.map(companies, new TypeToken<List<CandidateDto>>(){}.getType());
-        }else {
-            throw new DreamHireException("Companies Are Not_Found!");
-        }
+            return modelMapper.map(companies, new TypeToken<List<CompanyDto>>(){}.getType());
+        }else throw new DreamHireException(ERROR_NOT_FOUND, "Companies Are Not_Found!");
+    }
+
+    @Override
+    public String saveBr(int id, String businessReport) {
+        if(companyRepo.existsById(id)){
+            Company company = companyRepo.findById(id);
+            company.setRegistration(businessReport);
+            companyRepo.save(company);
+            return "Business report id successfully uploaded";
+        }else throw new DreamHireException(ERROR_NOT_FOUND, "Company is not found with this id: " + id);
+    }
+
+    @Override
+    public List<CompanyDto> getPendingApprovalCompanies() {
+        List<Company> companies = companyRepo.getAllByApprovalIsFalseAndRegistrationIsNotNull();
+
+        if(companies.size()>0){
+            List<CompanyDto> companyDtos = modelMapper.map(companies, new TypeToken<List<CompanyDto>>(){}.getType());
+            return companyDtos;
+        }else throw new DreamHireException(ERROR_NOT_FOUND, "Pending approval request is not found!");
     }
 }

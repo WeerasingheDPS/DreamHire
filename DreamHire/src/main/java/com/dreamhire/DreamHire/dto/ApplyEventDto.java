@@ -1,8 +1,8 @@
 package com.dreamhire.DreamHire.dto;
 
 import com.dreamhire.DreamHire.model.Candidate;
+import com.dreamhire.DreamHire.model.Company;
 import com.dreamhire.DreamHire.model.Event;
-import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -21,4 +21,6 @@ public class ApplyEventDto {
     private String candidateEmail;
 
     private String candidateAddress;
+
+    private Company company;
 }

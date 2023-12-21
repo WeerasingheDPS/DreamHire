@@ -7,6 +7,7 @@ import com.dreamhire.DreamHire.model.Event;
 import com.dreamhire.DreamHire.repository.CompanyRepo;
 import com.dreamhire.DreamHire.repository.EventRepo;
 import com.dreamhire.DreamHire.service.EventService;
+import com.dreamhire.DreamHire.util.enums.ErrorEnum;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class EventServiceImpl implements EventService {
             Event event = eventRepo.findById(id);
             return modelMapper.map(event, EventResponseDto.class);
         }else {
-            throw new DreamHireException("Event is Not_Found");
+            throw new DreamHireException(ErrorEnum.ERROR_NOT_FOUND, "Event is Not_Found");
         }
 
     }

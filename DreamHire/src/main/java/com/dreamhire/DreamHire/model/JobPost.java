@@ -12,12 +12,10 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Table(name = "job_posts")
-public class JobPost{
+public class JobPost extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    private Date postedDate;
     private String jobTitle;
     private String jobType;
     private String experience;

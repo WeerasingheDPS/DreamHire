@@ -11,7 +11,7 @@ import java.util.Date;
 @Table(name = "apply_job_candidates")
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApplyJobCandidate{
+public class ApplyJobCandidate extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

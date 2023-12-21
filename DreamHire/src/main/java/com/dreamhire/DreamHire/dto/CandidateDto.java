@@ -1,10 +1,10 @@
 package com.dreamhire.DreamHire.dto;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -12,12 +12,13 @@ import java.util.Date;
 @NoArgsConstructor
 public class CandidateDto {
 
+    private int id;
     private String title;
     private String email;
-    private Date birthday;
+    private LocalDateTime birthday;
     private String city;
     private String name;
-    private boolean visible = true;
+    private boolean visible;
     private String profilePicture;
     private String description;
     private String phone;

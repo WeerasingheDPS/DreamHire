@@ -13,4 +13,8 @@ public interface CompanyService {
     CompanyDto getCompany(int id);
 
     List<CompanyDto> getAllCompanies();
+
+    String saveBr(int id, String businessReport);
+
+    List<CompanyDto> getPendingApprovalCompanies();
 }
