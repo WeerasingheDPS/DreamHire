@@ -11,4 +11,6 @@ import java.util.Optional;
 @EnableJpaRepositories
 public interface SystemUserRepo extends JpaRepository<SystemUser, Integer> {
     Optional<SystemUser> findByEmail(String email);
+
+    boolean existsByEmailAndUserType(String email, String userType);
 }

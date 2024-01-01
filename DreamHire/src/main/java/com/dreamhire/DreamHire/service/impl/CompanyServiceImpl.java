@@ -2,10 +2,12 @@ package com.dreamhire.DreamHire.service.impl;
 
 import com.dreamhire.DreamHire.dto.CandidateDto;
 import com.dreamhire.DreamHire.dto.CompanyDto;
+import com.dreamhire.DreamHire.dto.SystemUserDto;
 import com.dreamhire.DreamHire.dto.request.CompanyRegisterRequestDto;
 import com.dreamhire.DreamHire.exception.DreamHireException;
 import com.dreamhire.DreamHire.model.Company;
 import com.dreamhire.DreamHire.repository.CompanyRepo;
+import com.dreamhire.DreamHire.repository.SystemUserRepo;
 import com.dreamhire.DreamHire.service.CompanyService;
 import com.dreamhire.DreamHire.util.enums.ErrorEnum;
 import com.dreamhire.DreamHire.util.enums.UserType;
@@ -27,12 +29,14 @@ public class CompanyServiceImpl implements CompanyService {
     @Autowired
     private CompanyRepo companyRepo;
     @Autowired
+    private SystemUserRepo systemUserRepo;
+    @Autowired
     private PasswordEncoder passwordEncoder;
     @Override
     public CompanyDto register(CompanyRegisterRequestDto companyRegisterRequestDto) {
-        if(companyRepo.existsByEmail(companyRegisterRequestDto.getEmail())){
+        if(systemUserRepo.existsByEmailAndUserType(companyRegisterRequestDto.getEmail(), "ROLE_" + UserType.COMPANY)){
             throw new DreamHireException(ErrorEnum.ERROR_DUPLICATE_EMAIL,
-                    "Company is already registered with this email: " +
+                    "Company has been already registered with this email: " +
                             companyRegisterRequestDto.getEmail());
         }else {
             Company company = modelMapper.map(companyRegisterRequestDto,Company.class);

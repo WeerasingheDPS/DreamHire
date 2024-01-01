@@ -4,6 +4,7 @@ import com.dreamhire.DreamHire.dto.request.CandidateRegisterRequestDto;
 import com.dreamhire.DreamHire.exception.DreamHireException;
 import com.dreamhire.DreamHire.model.Candidate;
 import com.dreamhire.DreamHire.repository.CandidateRepo;
+import com.dreamhire.DreamHire.repository.SystemUserRepo;
 import com.dreamhire.DreamHire.service.CandidateService;
 import com.dreamhire.DreamHire.util.enums.ErrorEnum;
 import com.dreamhire.DreamHire.util.enums.UserType;
@@ -23,12 +24,14 @@ public class CandidateServiceImpl implements CandidateService {
     @Autowired
     private CandidateRepo candidateRepo;
     @Autowired
+    private SystemUserRepo systemUserRepo;
+    @Autowired
     private PasswordEncoder passwordEncoder;
     @Override
     public CandidateDto register(CandidateRegisterRequestDto candidateRegisterRequestDto) {
-        if(candidateRepo.existsByEmail(candidateRegisterRequestDto.getEmail())){
+        if(systemUserRepo.existsByEmailAndUserType(candidateRegisterRequestDto.getEmail(), "ROLE_" + UserType.CANDIDATE)){
             throw new DreamHireException(ErrorEnum.ERROR_DUPLICATE_EMAIL,
-                    "Candidate is already registered with this email: " +
+                    "Candidate has been already registered with this email: " +
                             candidateRegisterRequestDto.getEmail());
         }
         Candidate candidate = modelMapper.map(candidateRegisterRequestDto,Candidate.class);
